@@ -28,7 +28,7 @@ onUnmounted(() => {
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-8">
           <NuxtLink 
-            v-for="item in ['Startseite', 'Über uns', 'Produkte', 'Kontakt']" 
+            v-for="item in ['Startseite', 'Ueber uns', 'Produkte', 'Kontakt']" 
             :key="item"
             :to="item === 'Startseite' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`"
             class="text-lg font-medium transition-colors duration-200"
@@ -79,7 +79,7 @@ onUnmounted(() => {
       >
         <div class="px-4 py-4 space-y-4">
           <NuxtLink 
-            v-for="item in ['Startseite', 'Über uns', 'Produkte', 'Kontakt']" 
+            v-for="item in ['Startseite', 'Ueber uns', 'Produkte', 'Kontakt']" 
             :key="item"
             :to="item === 'Startseite' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`"
             class="block text-gray-600 hover:text-gray-900 text-lg font-medium"
