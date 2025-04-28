@@ -28,7 +28,7 @@
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/uber-uns" class="text-gray-400 hover:text-white transition-colors">
+                <NuxtLink to="/ueber-uns" class="text-gray-400 hover:text-white transition-colors">
                   Über uns
                 </NuxtLink>
               </li>
