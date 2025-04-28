@@ -26,49 +26,17 @@ useHead({
       content: "website",
     },
   ],
-  bodyAttrs: {
-    class: 'font-sans antialiased'
-  }
 });
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <v-app>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </v-app>
 </template>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
-.font-sans {
-  font-family: 'Inter', sans-serif;
-}
-
-.font-display {
-  font-family: 'Playfair Display', serif;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+<style lang="scss">
+@import '@/assets/scss/main.scss';
 </style>

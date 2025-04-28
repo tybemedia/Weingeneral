@@ -1,0 +1,36 @@
+// Custom variables
+$font-family-base: 'Inter', sans-serif;
+$font-family-display: 'Playfair Display', serif;
+
+// Import fonts
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Custom styles
+.v-application {
+  font-family: $font-family-base !important;
+}
+
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6 {
+  font-family: $font-family-display !important;
+}
+
+// Custom utility classes
+.max-width-600 {
+  max-width: 600px;
+}
+
+// Custom transitions
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+} 
