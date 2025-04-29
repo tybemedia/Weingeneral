@@ -22,7 +22,11 @@ export default defineNuxtConfig({
           additionalData: '@use "vuetify/styles" as *;'
         }
       }
-    }
+    },
+    plugins: [
+      // @ts-ignore
+      import('vite-tsconfig-paths')
+    ]
   },
   runtimeConfig: {
     woocommerce: {

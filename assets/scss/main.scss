@@ -1,23 +1,48 @@
 // Custom variables
-$font-family-base: 'Inter', sans-serif;
-$font-family-display: 'Playfair Display', serif;
+$font-family-base: 'Montserrat', sans-serif;
+$font-family-display: 'Cormorant Garamond', serif;
 
-// Import fonts
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+// Import fonts with more weights
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
 
-// Custom styles
+// Global font settings
+:root {
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+// Base font settings
+body {
+  font-family: $font-family-base;
+  font-weight: var(--font-weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Heading styles
+h1, h2, h3, h4, h5, h6,
+.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
+  font-family: $font-family-display;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+}
+
+// Vuetify overrides
 .v-application {
   font-family: $font-family-base !important;
+  
+  .text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
+    font-family: $font-family-display !important;
+  }
 }
 
-.text-h1,
-.text-h2,
-.text-h3,
-.text-h4,
-.text-h5,
-.text-h6 {
-  font-family: $font-family-display !important;
-}
+// Font weight utility classes
+.font-weight-regular { font-weight: var(--font-weight-regular) !important; }
+.font-weight-medium { font-weight: var(--font-weight-medium) !important; }
+.font-weight-semibold { font-weight: var(--font-weight-semibold) !important; }
+.font-weight-bold { font-weight: var(--font-weight-bold) !important; }
 
 // Custom utility classes
 .max-width-600 {
