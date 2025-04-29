@@ -29,7 +29,7 @@ import TheTopBar from '~/components/TheTopBar.vue';
             <h3 class="text-h5 font-weight-bold mb-6">Quick Links</h3>
             <v-list density="compact" class="bg-transparent">
               <v-list-item
-                v-for="item in ['Startseite', 'Über uns', 'Produkte', 'Kontakt']"
+                v-for="item in ['Startseite', 'Ueber uns', 'Produkte', 'Kontakt']"
                 :key="item"
                 :to="item === 'Startseite' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`"
                 class="text-grey-lighten-1 footer-link"

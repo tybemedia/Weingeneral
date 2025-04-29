@@ -18,7 +18,7 @@ onUnmounted(() => {
 
 const navItems = [
   { title: 'Startseite', to: '/' },
-  { title: 'Über uns', to: '/ueber-uns' },
+  { title: 'Ueber uns', to: '/ueber-uns' },
   { 
     title: 'Produkte', 
     children: [
