@@ -27,7 +27,7 @@ const navItems = [
       { title: 'Ausstattung', to: '/ausstattung' }
     ]
   },
-  { title: 'Kontakt', to: '/contact' }
+  { title: 'Kontakt', to: '/kontakt' }
 ]
 </script>
 

@@ -19,44 +19,47 @@
 
     <template v-else>
       <!-- Product Header Section -->
-      <div class="container-fluid px-4 py-8">
+      <div class="container-fluid">
         <div class="max-w-[1140px] mx-auto">
           <v-row>
             <!-- Left Column - Image Gallery -->
-            <v-col cols="12" md="6" class="product-gallery pe-md-8">
-              <div class="main-image-container mb-4">
-                <v-img
-                  :src="currentImage"
-                  :alt="product?.name"
-                  height="500"
-                  class="main-image rounded-lg"
-                  cover
-                >
-                  <template v-slot:placeholder>
-                    <v-row class="fill-height ma-0" align="center" justify="center">
-                      <v-progress-circular indeterminate color="grey-lighten-5"></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </div>
-              
-              <!-- Thumbnail Gallery -->
-              <div class="thumbnails-container d-flex gap-4 justify-space-between">
-                <div
-                  v-for="(image, index) in product?.images"
-                  :key="index"
-                  class="thumbnail-wrapper"
-                  @click="currentImage = image.src"
-                >
+            <v-col cols="12" md="6" class="product-gallery">
+              <div class="gallery-container d-flex gap-4">
+                <!-- Thumbnail Gallery -->
+                <div class="thumbnails-container d-flex flex-column gap-4">
+                  <div
+                    v-for="(image, index) in product?.images"
+                    :key="index"
+                    class="thumbnail-wrapper"
+                    @click="currentImage = image.src"
+                  >
+                    <v-img
+                      :src="image.src"
+                      :alt="'Product image ' + (index + 1)"
+                      width="80"
+                      height="80"
+                      cover
+                      class="thumbnail"
+                      :class="{ 'active': currentImage === image.src }"
+                    ></v-img>
+                  </div>
+                </div>
+
+                <!-- Main Image -->
+                <div class="main-image-container flex-grow-1">
                   <v-img
-                    :src="image.src"
-                    :alt="'Product image ' + (index + 1)"
-                    width="80"
-                    height="80"
+                    :src="currentImage"
+                    :alt="product?.name"
+                    height="600"
+                    class="main-image"
                     cover
-                    class="thumbnail"
-                    :class="{ 'active': currentImage === image.src }"
-                  ></v-img>
+                  >
+                    <template v-slot:placeholder>
+                      <v-row class="fill-height ma-0" align="center" justify="center">
+                        <v-progress-circular indeterminate color="grey-lighten-5"></v-progress-circular>
+                      </v-row>
+                    </template>
+                  </v-img>
                 </div>
               </div>
             </v-col>
@@ -81,7 +84,7 @@
                 color="primary"
                 size="x-large"
                 block
-                class="inquiry-btn display-font mb-6"
+                class="inquiry-btn display-font mb-12"
                 @click="handleInquiry(product)"
                 v-motion
                 whileHover="{ scale: 1.02 }"
@@ -89,41 +92,39 @@
               >
                 Anfragen
               </v-btn>
+
+              <!-- Product Details Tabs -->
+              <div class="product-tabs-section">
+                <v-tabs
+                  v-model="activeTab"
+                  color="primary"
+                  class="product-tabs mb-8"
+                >
+                  <v-tab value="description" class="display-font text-h6 px-0 me-8">Beschreibung</v-tab>
+                  <v-tab value="details" class="display-font text-h6 px-0">Produktdetails</v-tab>
+                </v-tabs>
+
+                <v-window v-model="activeTab">
+                  <v-window-item value="description">
+                    <div class="base-font product-description" v-if="product?.description" v-html="sanitizeHtml(product.description)"></div>
+                  </v-window-item>
+
+                  <v-window-item value="details">
+                    <div class="product-details">
+                      <table class="details-table w-100" v-if="product?.attributes?.length">
+                        <tbody>
+                          <tr v-for="attr in product.attributes" :key="attr.id" class="details-row">
+                            <td class="py-3 pr-8 base-font">{{ attr.name }}</td>
+                            <td class="py-3 base-font">{{ attr.options.join(', ') }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </v-window-item>
+                </v-window>
+              </div>
             </v-col>
           </v-row>
-        </div>
-      </div>
-
-      <!-- Product Details Tabs -->
-      <div class="container-fluid px-4 py-8 bg-grey-lighten-4">
-        <div class="max-w-[1140px] mx-auto">
-          <v-tabs
-            v-model="activeTab"
-            color="primary"
-            class="product-tabs mb-6"
-          >
-            <v-tab value="description" class="display-font text-h6">Beschreibung</v-tab>
-            <v-tab value="details" class="display-font text-h6">Produktdetails</v-tab>
-          </v-tabs>
-
-          <v-window v-model="activeTab">
-            <v-window-item value="description">
-              <div class="base-font product-description pa-4" v-if="product?.description" v-html="sanitizeHtml(product.description)"></div>
-            </v-window-item>
-
-            <v-window-item value="details">
-              <div class="product-details pa-4">
-                <table class="details-table w-100">
-                  <tbody>
-                    <tr v-for="(value, key) in productDetails" :key="key">
-                      <td class="py-2 pr-4 base-font">{{ key }}</td>
-                      <td class="py-2 base-font">{{ value }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </v-window-item>
-          </v-window>
         </div>
       </div>
     </template>
@@ -185,23 +186,6 @@ const sanitizeHtml = (html: string) => {
   });
 };
 
-const productDetails = computed(() => {
-  if (!product.value) return {};
-  
-  return {
-    'Rebsorte': product.value.attributes?.grape || '-',
-    'Herkunftsland': product.value.attributes?.country || '-',
-    'Region': product.value.attributes?.region || '-',
-    'Alkoholgehalt': product.value.attributes?.alcohol || '-',
-    'Allergene': 'Enthält Sulfite',
-    'Füllmenge': product.value.attributes?.volume || '0,75l',
-    'Geschmack': product.value.attributes?.taste || '-',
-    'Bio': product.value.attributes?.organic ? 'Ja' : 'Nein',
-    'Jahrgang': product.value.attributes?.vintage || '-',
-    'Trinktemperatur': product.value.attributes?.drinking_temperature || '-',
-  };
-});
-
 const handleInquiry = (product: any) => {
   // TODO: Implement inquiry functionality
   console.log('Inquiry for product:', product);
@@ -217,53 +201,60 @@ onMounted(() => {
   max-width: 1140px;
 }
 
+.gallery-container {
+  position: relative;
+  width: 100%;
+}
+
 .product-gallery {
   position: relative;
 }
 
-.main-image-container {
-  border-radius: 16px;
-  overflow: hidden;
-  background: #f5f5f7;
-  max-height: 500px;
-}
-
-.main-image {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .thumbnails-container {
-  overflow-x: auto;
+  width: 80px;
+  overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 16px;
-  padding: 0;
+  max-height: 600px;
+}
+
+.thumbnails-container::-webkit-scrollbar {
+  display: none;
 }
 
 .thumbnail-wrapper {
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
   transition: all 0.3s ease;
-  flex: 1;
-  max-width: calc(25% - 12px);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .thumbnail {
-  border: 2px solid transparent;
-  border-radius: 8px;
+  opacity: 0.7;
   transition: all 0.3s ease;
 }
 
 .thumbnail.active {
-  border-color: var(--v-primary-base);
+  opacity: 1;
+  border: 2px solid var(--v-primary-base);
 }
 
 .thumbnail-wrapper:hover .thumbnail:not(.active) {
-  opacity: 0.8;
+  opacity: 0.9;
+}
+
+.main-image-container {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.main-image {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: 100%;
 }
 
 .product-info {
@@ -282,10 +273,29 @@ onMounted(() => {
   letter-spacing: 0.5px;
 }
 
+.details-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.details-row {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.details-row:last-child {
+  border-bottom: none;
+}
+
 .details-table td:first-child {
   font-weight: 500;
-  color: #1d1d1f;
-  width: 200px;
+  color: #000000;
+  width: 240px;
+}
+
+.details-table td {
+  vertical-align: top;
+  line-height: 1.6;
 }
 
 .display-font {
@@ -298,40 +308,74 @@ onMounted(() => {
   line-height: 1.6 !important;
 }
 
+.product-tabs-section {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 2rem;
+}
+
 .product-tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+  border: none;
 }
 
 :deep(.v-tab) {
   text-transform: none !important;
   letter-spacing: 0 !important;
+  font-weight: 500;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  min-width: unset;
 }
 
 :deep(.v-tab--selected) {
-  color: var(--v-primary-base) !important;
+  color: #000000 !important;
+  opacity: 1;
 }
 
-:deep(.product-description) {
+:deep(.v-tab:hover) {
+  opacity: 1;
+}
+
+:deep(.v-tabs__bar) {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+.product-description {
   max-width: 800px;
-  margin: 0 auto;
+  line-height: 1.8;
+  color: #333333;
 }
 
 :deep(.product-description p) {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 :deep(.product-description h1),
 :deep(.product-description h2),
 :deep(.product-description h3) {
   font-family: 'Pathway Gothic One', sans-serif !important;
-  margin: 2rem 0 1rem;
-  color: #1d1d1f;
+  margin: 2.5rem 0 1.5rem;
+  color: #000000;
 }
 
 @media (max-width: 960px) {
-  .product-info {
-    padding-left: 16px !important;
-    margin-top: 32px;
+  .gallery-container {
+    flex-direction: column-reverse;
+  }
+
+  .thumbnails-container {
+    width: 100%;
+    flex-direction: row !important;
+    max-height: none;
+    overflow-x: auto;
+  }
+
+  .thumbnail-wrapper {
+    flex: 0 0 80px;
+  }
+
+  .main-image-container {
+    margin-bottom: 16px;
   }
 }
 </style> 
