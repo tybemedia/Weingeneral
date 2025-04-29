@@ -1,5 +1,3 @@
-import WooCommerceRestApi from '@woocommerce/woocommerce-rest-api';
-
 interface Product {
   id: number;
   name: string;
@@ -20,55 +18,44 @@ interface Category {
 
 export const useWooCommerce = () => {
   const config = useRuntimeConfig();
-  
-  const api = new WooCommerceRestApi({
-    url: 'https://weingeneral.de/weingeneral',
-    consumerKey: 'ck_f569f9d15352cd965f14e58d00cfde131e628a93',
-    consumerSecret: 'cs_bd541bb1dda1dce7e1baa7d3832ca42e412dc1b4',
-    version: 'wc/v3'
-  });
+
+  const baseUrl = 'https://weingeneral.de/weingeneral/wp-json/wc/v3';
+  const consumerKey = 'ck_f569f9d15352cd965f14e58d00cfde131e628a93';
+  const consumerSecret = 'cs_bd541bb1dda1dce7e1baa7d3832ca42e412dc1b4';
+
+  const makeRequest = async (endpoint: string, params: Record<string, any> = {}) => {
+    const searchParams = new URLSearchParams({
+      consumer_key: consumerKey,
+      consumer_secret: consumerSecret,
+      ...params
+    });
+
+    const url = `${baseUrl}/${endpoint}?${searchParams.toString()}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Error fetching WooCommerce API: ${response.status}`);
+    }
+    return response.json();
+  };
 
   const getProducts = async (params?: any) => {
-    try {
-      const response = await api.get('products', params);
-      return response.data as Product[];
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;
-    }
+    return makeRequest('products', params);
   };
 
   const getProduct = async (id: number) => {
-    try {
-      const response = await api.get(`products/${id}`);
-      return response.data as Product;
-    } catch (error) {
-      console.error(`Error fetching product ${id}:`, error);
-      throw error;
-    }
+    return makeRequest(`products/${id}`);
   };
 
   const getCategories = async () => {
-    try {
-      const response = await api.get('products/categories');
-      return response.data as Category[];
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-      throw error;
-    }
+    return makeRequest('products/categories');
   };
 
   const getProductsByCategory = async (categoryId: number, params?: any) => {
-    try {
-      const response = await api.get('products', {
-        category: categoryId,
-        ...params
-      });
-      return response.data as Product[];
-    } catch (error) {
-      console.error(`Error fetching products for category ${categoryId}:`, error);
-      throw error;
-    }
+    return makeRequest('products', {
+      category: categoryId.toString(),
+      ...params
+    });
   };
 
   return {
@@ -77,4 +64,4 @@ export const useWooCommerce = () => {
     getCategories,
     getProductsByCategory
   };
-}; 
+};

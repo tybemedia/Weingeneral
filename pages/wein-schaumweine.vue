@@ -13,11 +13,12 @@ const categoryId = ref(null);
 const { data: initialProducts } = await useAsyncData('wine-products', async () => {
   try {
     const categories = await getCategories();
+    console.log(categories);
     const wineCategory = categories.find(cat => 
       cat.name.toLowerCase().includes('wein') || 
       cat.slug.toLowerCase().includes('wein')
     );
-    
+
     if (wineCategory) {
       categoryId.value = wineCategory.id;
       const productsData = await getProductsByCategory(wineCategory.id);

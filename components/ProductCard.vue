@@ -8,7 +8,7 @@
     whileHover="{ y: -10, transition: { duration: 300 } }"
   >
     <v-img
-      :src="product.images[0]?.src || '/placeholder.jpg'"
+      :src="product.images[0]?.src"
       height="200"
       cover
       class="product-image"

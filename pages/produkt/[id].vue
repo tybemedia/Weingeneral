@@ -117,7 +117,7 @@
               ></div>
 
               <v-btn
-                color="primary"
+                color="error"
                 size="x-large"
                 block
                 class="inquiry-btn display-font mb-12"
@@ -182,7 +182,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useWooCommerce } from '~/composables/useWooCommerce';
 import DOMPurify from 'isomorphic-dompurify';
 
@@ -201,7 +201,6 @@ const fetchProduct = async () => {
   try {
     const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
     product.value = await getProduct(Number(id));
-
     if (product.value?.images?.[0]?.src) {
       currentImage.value = product.value.images[0].src;
     }
@@ -213,6 +212,16 @@ const fetchProduct = async () => {
   }
 };
 
+// Add watch for route changes
+watch(() => route.params.id, () => {
+  fetchProduct();
+});
+
+onMounted(() => {
+  if (!product.value) {
+    fetchProduct();
+  }
+});
 
 const formatPrice = (price: string) => {
   return new Intl.NumberFormat('de-DE', {
@@ -236,10 +245,6 @@ const sanitizeHtml = (html: string) => {
     ALLOWED_ATTR: []
   });
 };
-
-onMounted(() => {
-  fetchProduct();
-});
 
 definePageMeta({
   layout: "default",
