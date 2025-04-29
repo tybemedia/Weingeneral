@@ -1,9 +1,14 @@
 // Custom variables
-$font-family-base: 'Montserrat', sans-serif;
-$font-family-display: 'Cormorant Garamond', serif;
+$font-family-base: 'Patrick Hand', cursive;
+$font-family-display: 'Pathway Gothic One', sans-serif;
+
+// Font size variables
+$font-size-base: 1.25rem; // 20px
+$font-size-lg: 1.5rem;   // 24px
+$font-size-xl: 1.75rem;  // 28px
 
 // Import fonts with more weights
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Patrick+Hand&display=swap');
 
 // Global font settings
 :root {
@@ -11,14 +16,19 @@ $font-family-display: 'Cormorant Garamond', serif;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  --font-size-base: #{$font-size-base};
+  --font-size-lg: #{$font-size-lg};
+  --font-size-xl: #{$font-size-xl};
 }
 
 // Base font settings
 body {
   font-family: $font-family-base;
+  font-size: $font-size-base;
   font-weight: var(--font-weight-regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 // Heading styles
@@ -29,12 +39,30 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1.2;
 }
 
+.text-h1 { font-size: 4.5rem !important; }    // 72px
+.text-h2 { font-size: 3.75rem !important; }   // 60px
+.text-h3 { font-size: 3rem !important; }      // 48px
+.text-h4 { font-size: 2.5rem !important; }    // 40px
+.text-h5 { font-size: 2rem !important; }      // 32px
+.text-h6 { font-size: 1.75rem !important; }   // 28px
+
+.text-body-1 { font-size: $font-size-lg !important; }
+.text-body-2 { font-size: $font-size-base !important; }
+.text-subtitle-1 { font-size: $font-size-xl !important; }
+.text-subtitle-2 { font-size: $font-size-lg !important; }
+
 // Vuetify overrides
 .v-application {
   font-family: $font-family-base !important;
+  font-size: $font-size-base;
   
   .text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
     font-family: $font-family-display !important;
+  }
+
+  .v-btn {
+    font-size: 1.25rem !important;
+    letter-spacing: 0.5px;
   }
 }
 
@@ -49,6 +77,10 @@ h1, h2, h3, h4, h5, h6,
   max-width: 600px;
 }
 
+// Text size utility classes
+.text-large { font-size: $font-size-lg !important; }
+.text-xlarge { font-size: $font-size-xl !important; }
+
 // Custom transitions
 .fade-enter-active,
 .fade-leave-active {
@@ -58,4 +90,31 @@ h1, h2, h3, h4, h5, h6,
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+:deep(.v-btn),
+:deep(.text-h2),
+:deep(.text-h4) {
+  font-family: 'Pathway Gothic One', sans-serif !important;
+}
+
+:deep(.text-body-1),
+:deep(.text-body-2),
+:deep(.text-subtitle-1),
+:deep(.text-subtitle-2) {
+  font-family: 'Patrick Hand', cursive !important;
+}
+
+// Responsive adjustments
+@media (max-width: 960px) {
+  .text-h1 { font-size: 3.5rem !important; }
+  .text-h2 { font-size: 3rem !important; }
+  .text-h3 { font-size: 2.5rem !important; }
+  .text-h4 { font-size: 2rem !important; }
+  .text-h5 { font-size: 1.75rem !important; }
+  .text-h6 { font-size: 1.5rem !important; }
+  
+  body {
+    font-size: 1.125rem;
+  }
 } 

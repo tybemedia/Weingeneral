@@ -63,6 +63,7 @@ const navItems = [
                 class="products-menu"
                 open-on-hover
                 offset="8"
+                transition="slide-y-transition"
               >
                 <template v-slot:activator="{ props }">
                   <div
@@ -78,12 +79,13 @@ const navItems = [
                   </div>
                 </template>
 
-                <v-list class="py-4 px-2">
+                <v-list class="menu-list py-4 px-2" rounded="lg">
                   <v-list-item
                     v-for="child in item.children"
                     :key="child.title"
                     :to="child.to"
                     class="text-decoration-none menu-item"
+                    rounded="lg"
                   >
                     <v-list-item-title class="text-nav">{{ child.title }}</v-list-item-title>
                   </v-list-item>
@@ -193,6 +195,7 @@ const navItems = [
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .navigation.scrolled {
@@ -200,9 +203,8 @@ const navItems = [
 }
 
 .logo {
-  height: 48px;
+  height: 40px;
   width: auto;
-  transition: all 0.3s ease;
 }
 
 .nav-item {
@@ -214,14 +216,9 @@ const navItems = [
 }
 
 .nav-link {
-  padding: 12px 0;
   position: relative;
+  padding: 8px 0;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  white-space: nowrap;
-  color: #1d1d1f;
 }
 
 .nav-link::after {
@@ -231,12 +228,18 @@ const navItems = [
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #9a1915;
+  background-color: var(--v-primary-base);
   transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
   width: 100%;
+}
+
+.text-nav {
+  font-family: 'Pathway Gothic One', sans-serif !important;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
 }
 
 .products-menu {
@@ -327,7 +330,9 @@ const navItems = [
 .mobile-submenu-item:hover::after {
   width: calc(100% - 48px);
 }
-
+.desktop-nav{
+  border-bottom: solid #e4e4e4 2px;
+}
 @media (max-width: 960px) {
   .desktop-nav {
     display: none;
@@ -338,5 +343,37 @@ const navItems = [
   .mobile-nav {
     display: none;
   }
+}
+
+:deep(.v-menu) {
+  border-radius: 12px;
+}
+
+:deep(.menu-list) {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  min-width: 200px;
+}
+
+:deep(.menu-item) {
+  margin: 4px;
+  transition: all 0.3s ease;
+}
+
+:deep(.menu-item:hover) {
+  background-color: rgba(154, 25, 21, 0.05) !important;
+  transform: translateX(4px);
+}
+
+:deep(.v-list-item-title) {
+  transition: color 0.3s ease;
+}
+
+:deep(.menu-item:hover .v-list-item-title) {
+  color: var(--v-primary-base) !important;
 }
 </style> 

@@ -33,128 +33,81 @@ definePageMeta({
 
 <template>
   <div>
-    <!-- Hero Section - 50/50 Split -->
-    <div class="hero-section d-flex">
-      <!-- Left side - Image -->
-      <div 
-        class="hero-image flex-1"
-        v-motion
-        :initial="{ opacity: 0, x: -100 }"
-        :enter="{ opacity: 1, x: 0, transition: { duration: 1000, ease: 'easeOut' } }"
-      >
-        <v-img
-          src="https://images.pexels.com/photos/1545529/pexels-photo-1545529.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          height="100vh"
-          cover
-        ></v-img>
-      </div>
-      
-      <!-- Right side - Dark box with text -->
-      <div 
-        class="hero-content flex-1 d-flex align-center justify-center bg-grey-darken-4"
-        v-motion
-        :initial="{ opacity: 0, x: 100 }"
-        :enter="{ opacity: 1, x: 0, transition: { duration: 1000, ease: 'easeOut', delay: 200 } }"
-        style="padding: 2em"
-      >
-        <v-container class="py-16">
-          <h3 
-            class="text-h5 font-weight-bold text-white mb-6"
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: 400 } }"
-          >DER WEINGENERAL</h3>
-          <h1
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: 600 } }"
-          >Wilkommen in der Weinkompanie</h1>
-          <p 
-            class="text-h5 text-white mb-8"
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: 800 } }"
-          >
-            Der Weingeneral - Ihr stilvoller Showroom für erlesene Weine, edle Spirituosen und passende Ausstattungstechnik.
-          </p>
-          <v-btn
-            color="white"
-            size="large"
-            class="text-black"
-            variant="flat"
-            v-motion
-            :initial="{ opacity: 0, y: 20 }"
-            :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: 1000 } }"
-            whileHover="{ scale: 1.05 }"
-            whileTap="{ scale: 0.95 }"
-          >
-            Jetzt anfragen
-          </v-btn>
-        </v-container>
-      </div>
-    </div>
+    <TheHeroSection />
 
     <!-- Featured Products -->
     <v-container class="py-16">
-      <h2 
-        class="text-h3 text-center mb-12"
-        v-motion
-        :initial="{ opacity: 0, y: 20 }"
-        :enter="{ opacity: 1, y: 0, transition: { duration: 800 } }"
-      >Beliebte Produkte</h2>
-      <v-row>
+      <div class="text-center">
+        <h2 
+          class="text-h3 section-title d-inline-block"
+          v-motion
+          :initial="{ opacity: 0, y: 20 }"
+          :enter="{ opacity: 1, y: 0, transition: { duration: 800 } }"
+        >
+          <span class="title-background"></span>
+          <span class="title-text">
+            Unsere 3 Spezialitäten
+          </span>
+        </h2>
+      </div>
+      <v-row class="mt-12">
         <v-col
           v-for="(product, index) in featuredProducts"
           :key="product.title"
           cols="12"
           md="4"
+          class="d-flex"
         >
-          <v-card
-            class="h-100"
-            elevation="2"
-            v-motion
-            :initial="{ opacity: 0, y: 50 }"
-            :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: index * 200 } }"
-            whileHover="{ y: -10, transition: { duration: 300 } }"
+          <NuxtLink 
+            :to="product.to" 
+            class="text-decoration-none d-flex w-100"
           >
-            <v-img
-              :src="product.image"
-              height="300"
-              cover
+            <v-card
+              class="d-flex flex-column w-100"
+              elevation="2"
+              v-motion
+              :initial="{ opacity: 0, y: 50 }"
+              :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: index * 200 } }"
+              whileHover="{ y: -10, transition: { duration: 300 } }"
             >
-              <template v-slot:placeholder>
-                <v-row
-                  class="fill-height ma-0"
-                  align="center"
-                  justify="center"
-                >
-                  <v-progress-circular
-                    indeterminate
-                    color="grey-lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-
-            <v-card-text class="position-relative">
-              <h3 class="text-h5 mb-2">{{ product.title }}</h3>
-              <p class="text-body-1 text-grey">{{ product.description }}</p>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn
-                variant="outlined"
-                color="primary"
-                block
-                :to="product.to"
-                v-motion
-                whileHover="{ scale: 1.05 }"
-                whileTap="{ scale: 0.95 }"
+              <v-img
+                :src="product.image"
+                height="300"
+                cover
+                class="flex-grow-0"
               >
-                {{ product.cta }}
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+                <template v-slot:placeholder>
+                  <v-row
+                    class="fill-height ma-0"
+                    align="center"
+                    justify="center"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      color="grey-lighten-5"
+                    ></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
+
+              <v-card-text class="d-flex flex-column flex-grow-1 pa-6">
+                <h3 class="text-h5 mb-4 display-font">{{ product.title }}</h3>
+                <p class="text-body-1 text-grey base-font flex-grow-1">{{ product.description }}</p>
+              </v-card-text>
+
+              <v-card-actions class="pa-6 pt-0">
+                <v-btn
+                  variant="outlined"
+                  color="primary"
+                  block
+                  size="large"
+                  class="display-font text-button clickable-btn"
+                >
+                  {{ product.cta }}
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </NuxtLink>
         </v-col>
       </v-row>
     </v-container>
@@ -199,8 +152,8 @@ definePageMeta({
           v-for="(feature, index) in [
             { icon: 'mdi-truck', title: 'Kostenloser Versand', desc: 'Für alle Bestellungen' },
             { icon: 'mdi-lock', title: 'Sichere Zahlung', desc: '100% sicher' },
-            { icon: 'mdi-headset', title: '24/7 Support', desc: 'Engagierte Unterstützung' },
-            { icon: 'mdi-gift', title: 'Mitgliedsrabatt', desc: 'Bei jeder Bestellung' }
+            { icon: 'mdi-headset', title: '365 Tage Service', desc: 'Engagierte Unterstützung von wahren Experten' },
+            { icon: 'mdi-gift', title: '300€ Bonus für Ausstattung', desc: 'Ab 1.000€ Bestellwert im Weinsektor' }
           ]"
           :key="feature.title"
           cols="12" 
@@ -249,6 +202,117 @@ definePageMeta({
   .hero-image, .hero-content {
     width: 100%;
     height: 50vh;
+  }
+}
+
+.section-title {
+  position: relative;
+  padding: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-background {
+  background-color: #9a1915;
+  height: 34px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.title-text {
+  position: relative;
+  z-index: 2;
+  padding: 4px 24px 16px;
+  background: linear-gradient(
+    to bottom,
+    #fff 0%,
+    #fff 60%,
+    #000 60%,
+    #000 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 
+    -1px -1px 0 #9a1915,  
+     1px -1px 0 #9a1915,  
+    -1px  1px 0 #9a1915,
+     1px  1px 0 #9a1915;
+  color: white;
+}
+
+/* Remove the previous underscore and after styles */
+.section-title::after,
+.title-text::after {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .title-text {
+    font-size: 2rem;
+    padding: 4px 16px 12px;
+  }
+  
+  .title-background {
+    height: 28px;
+  }
+}
+
+.display-font {
+  font-family: 'Pathway Gothic One', sans-serif !important;
+}
+
+.base-font {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1.25rem !important;
+  line-height: 1.6 !important;
+}
+
+.v-card {
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.v-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.v-card-text {
+  position: relative;
+}
+
+.clickable-btn {
+  pointer-events: none;
+  border-width: 2px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Remove the old button styles */
+.v-btn.v-btn--variant-outlined {
+  border-width: 2px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Add hover effect for the entire card */
+.v-card:hover .clickable-btn {
+  background-color: rgba(154, 25, 21, 0.05);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 960px) {
+  .v-card-text {
+    padding: 24px !important;
+  }
+  
+  .v-card-actions {
+    padding: 0 24px 24px !important;
   }
 }
 </style>

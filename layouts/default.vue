@@ -18,7 +18,7 @@ import TheTopBar from '~/components/TheTopBar.vue';
           <!-- Company Info -->
           <v-col cols="12" md="3">
             <h3 class="text-h5 font-weight-bold mb-6">DER WEINGENERAL</h3>
-            <p class="text-grey-lighten-1 text-body-1">
+            <p class="text-grey-lighten-1 footer-link">
               Ihr stilvoller Showroom für erlesene Weine, edle Spirituosen und 
               passende Ausstattungstechnik.
             </p>

@@ -25,6 +25,7 @@
     "@tailwindcss/vite": "^4.0.16",
     "@vueuse/motion": "^3.0.3",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "isomorphic-dompurify": "^2.24.0",
     "motion": "^12.9.2",
     "vuetify": "^3.8.2"
   }
