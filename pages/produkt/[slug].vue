@@ -24,7 +24,7 @@
           <v-row>
             <!-- Left Column - Image Gallery -->
             <v-col cols="12" md="6" class="product-gallery">
-              <div class="gallery-container d-flex gap-4">
+              <div class="d-flex">
                 <!-- Thumbnail Gallery -->
                 <div class="thumbnails-container d-flex flex-column gap-4">
                   <div
@@ -89,14 +89,15 @@
                   path: '/kontakt',
                   query: { 
                     product: product?.name,
-                    type: 'inquiry'
+                    type: 'inquiry',
+                    message: `Ich interessiere mich für ${product?.name}.\n\nPreis: ${formatPrice(product?.price)}\n\nBitte senden Sie mir weitere Informationen zu diesem Produkt.`
                   }
                 }"
                 v-motion
                 whileHover="{ scale: 1.02 }"
                 whileTap="{ scale: 0.98 }"
               >
-                Anfragen
+                Jetzt anfragen
               </v-btn>
 
               <!-- Product Details Tabs -->

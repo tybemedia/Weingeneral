@@ -214,7 +214,8 @@ const rules = {
 onMounted(() => {
   // If coming from a product page, pre-fill the message
   if (route.query.type === 'inquiry' && route.query.product) {
-    formData.message = `Ich interessiere mich für das Produkt: ${route.query.product}\n\nBitte senden Sie mir weitere Informationen.`;
+    const message = typeof route.query.message === 'string' ? route.query.message : null;
+    formData.message = message || `Ich interessiere mich für das Produkt: ${route.query.product}\n\nBitte senden Sie mir weitere Informationen.`;
   }
 });
 
