@@ -105,6 +105,63 @@ h1, h2, h3, h4, h5, h6,
   font-family: 'Patrick Hand', cursive !important;
 }
 
+// Global Typography
+.display-font {
+  font-family: 'Pathway Gothic One', sans-serif !important;
+}
+
+.base-font {
+  font-family: 'Patrick Hand', cursive !important;
+  font-size: 1.25rem !important;
+  line-height: 1.6 !important;
+}
+
+// Section Title Styling
+.section-title {
+  position: relative;
+  padding: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title-background {
+  background-color: #9a1915;
+  height: 34px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.title-text {
+  position: relative;
+  z-index: 2;
+  color: white;
+  padding: 0 1rem;
+}
+
+// Section Spacing
+.section-spacing {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.section-spacing-sm {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+// Container Padding
+.content-container {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
 // Responsive adjustments
 @media (max-width: 960px) {
   .text-h1 { font-size: 3.5rem !important; }
@@ -117,4 +174,40 @@ h1, h2, h3, h4, h5, h6,
   body {
     font-size: 1.125rem;
   }
+  
+  .section-spacing {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .section-spacing-sm {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+// Page content blur effect
+.v-main {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+// Exclude blur from certain components
+.v-overlay,
+.v-dialog,
+.v-menu {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 } 

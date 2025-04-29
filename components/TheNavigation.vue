@@ -64,6 +64,7 @@ const navItems = [
                 open-on-hover
                 offset="8"
                 transition="slide-y-transition"
+                scrim="false"
               >
                 <template v-slot:activator="{ props }">
                   <div
@@ -193,8 +194,6 @@ const navItems = [
   top: 0;
   z-index: 100;
   background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -347,16 +346,31 @@ const navItems = [
 
 :deep(.v-menu) {
   border-radius: 12px;
+  z-index: 101;
+}
+
+:deep(.v-overlay__content) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+:deep(.v-overlay__scrim) {
+  opacity: 0 !important;
+  background-color: transparent !important;
+}
+
+.products-menu {
+  background: transparent !important;
 }
 
 :deep(.menu-list) {
   background: rgba(255, 255, 255, 0.98) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
   min-width: 200px;
+  margin-top: 8px !important;
+  overflow: hidden;
 }
 
 :deep(.menu-item) {

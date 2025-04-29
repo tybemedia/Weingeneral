@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useWooCommerce } from '~/composables/useWooCommerce';
+import ProductCard from '~/components/ProductCard.vue';
 
 const { getProductsByCategory, getCategories } = useWooCommerce();
 const products = ref([]);
@@ -54,7 +55,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
+  <div class="product-page">
     <!-- Header Section -->
     <div 
       class="header-section"
@@ -142,51 +143,7 @@ definePageMeta({
           md="4"
           lg="3"
         >
-          <v-card
-            class="h-100"
-            elevation="2"
-            v-motion
-            :initial="{ opacity: 0, y: 50 }"
-            :enter="{ opacity: 1, y: 0, transition: { duration: 800, delay: index * 100 } }"
-            whileHover="{ y: -10, transition: { duration: 300 } }"
-          >
-            <v-img
-              :src="product.images[0]?.src || '/placeholder.jpg'"
-              height="200"
-              cover
-            >
-              <template v-slot:placeholder>
-                <v-row
-                  class="fill-height ma-0"
-                  align="center"
-                  justify="center"
-                >
-                  <v-progress-circular
-                    indeterminate
-                    color="grey-lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-
-            <v-card-text>
-              <h3 class="text-h6 mb-2">{{ product.name }}</h3>
-              <p class="text-body-2 text-grey">{{ product.short_description }}</p>
-              <div class="d-flex align-center justify-space-between mt-4">
-                <span class="text-h6">{{ product.price }} €</span>
-                <v-btn
-                  color="primary"
-                  variant="outlined"
-                  :to="`/produkt/${product.id}`"
-                  v-motion
-                  whileHover="{ scale: 1.05 }"
-                  whileTap="{ scale: 0.95 }"
-                >
-                  Mehr Details
-                </v-btn>
-              </div>
-            </v-card-text>
-          </v-card>
+          <ProductCard :product="product" :index="index" />
         </v-col>
       </v-row>
     </v-container>
@@ -194,6 +151,10 @@ definePageMeta({
 </template>
 
 <style scoped>
+.product-page {
+  margin-top: 64px; /* Add margin for navigation bar */
+}
+
 .header-section {
   position: relative;
 }

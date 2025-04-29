@@ -85,7 +85,13 @@
                 size="x-large"
                 block
                 class="inquiry-btn display-font mb-12"
-                @click="handleInquiry(product)"
+                :to="{ 
+                  path: '/kontakt',
+                  query: { 
+                    product: product?.name,
+                    type: 'inquiry'
+                  }
+                }"
                 v-motion
                 whileHover="{ scale: 1.02 }"
                 whileTap="{ scale: 0.98 }"
