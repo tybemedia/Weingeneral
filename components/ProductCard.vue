@@ -34,9 +34,9 @@
       </div>
 
       <div class="product-footer mt-4">
-        <div class="d-flex align-center justify-space-between mb-4">
+        <div class="d-flex align-center justify-space-between">
           <div>
-            <span class="text-h6 display-font">{{ formatPrice(product.price) }}</span>
+            <span class="text-h6 font-weight-bold">{{ formatPrice(product.price) }}</span>
             <div class="text-caption text-grey-darken-1">zzgl. MwSt.</div>
           </div>
           <v-btn

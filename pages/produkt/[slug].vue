@@ -68,14 +68,26 @@
             <v-col cols="12" md="6" class="product-info pl-md-8">
               <h1 class="text-h3 mb-4 display-font">{{ product?.name }}</h1>
               
-              <div class="price-container mb-6">
-                <div class="d-flex align-center">
-                  <span class="text-h4 font-weight-medium display-font mr-2">{{ formatPrice(product?.price) }}</span>
-                  <span class="text-caption text-grey-darken-1">zzgl. MwSt.</span>
+              <div class="d-flex align-center justify-space-between mb-4">
+                <div>
+                  <span class="text-h4 font-weight-bold">{{ formatPrice(product.price) }}</span>
+                  <div class="text-caption text-grey-darken-1">zzgl. MwSt.</div>
                 </div>
-                <div class="text-caption text-grey-darken-1 mt-1" v-if="product?.price">
-                  ({{ calculatePricePerLiter(product.price, product.meta_data) }} € / 1 L)
-                </div>
+                <v-btn
+                  color="#9a1915"
+                  variant="flat"
+                  size="large"
+                  class="px-8"
+                  v-motion
+                  whileHover="{ scale: 1.02 }"
+                  whileTap="{ scale: 0.98 }"
+                >
+                  Anfragen
+                </v-btn>
+              </div>
+
+              <div class="text-caption text-grey-darken-1 mt-1" v-if="product?.price">
+                ({{ calculatePricePerLiter(product.price, product.meta_data) }} € / 1 L)
               </div>
 
               <div class="short-description base-font mb-6" v-if="product?.short_description" v-html="sanitizeHtml(product.short_description)"></div>
@@ -266,11 +278,6 @@ onMounted(() => {
 
 .product-info {
   height: 100%;
-}
-
-.price-container {
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .inquiry-btn {
