@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useWooCommerce } from '~/composables/useWooCommerce';
 import ProductCard from '~/components/ProductCard.vue';
 
@@ -9,7 +9,8 @@ const loading = ref(true);
 const error = ref(null);
 const categoryId = ref(null);
 
-const initializeCategory = async () => {
+// Use async setup for SSR
+const { data: initialProducts } = await useAsyncData('spirits-products', async () => {
   try {
     const categories = await getCategories();
     const spirituosenCategory = categories.find(cat => 
@@ -19,35 +20,22 @@ const initializeCategory = async () => {
     
     if (spirituosenCategory) {
       categoryId.value = spirituosenCategory.id;
-      await fetchProducts();
-    } else {
-      error.value = 'Kategorie nicht gefunden';
+      const productsData = await getProductsByCategory(spirituosenCategory.id);
+      loading.value = false;
+      return productsData;
     }
-  } catch (e) {
-    error.value = 'Fehler beim Laden der Kategorien';
-    console.error('Error fetching categories:', e);
-  }
-};
-
-const fetchProducts = async () => {
-  if (!categoryId.value) return;
-  
-  loading.value = true;
-  error.value = null;
-  
-  try {
-    products.value = await getProductsByCategory(categoryId.value);
-  } catch (e) {
-    error.value = 'Fehler beim Laden der Produkte. Bitte versuchen Sie es später erneut.';
-    console.error('Error fetching products:', e);
-  } finally {
     loading.value = false;
+    return [];
+  } catch (e) {
+    console.error('Error fetching products:', e);
+    error.value = 'Fehler beim Laden der Produkte. Bitte versuchen Sie es später erneut.';
+    loading.value = false;
+    return [];
   }
-};
-
-onMounted(() => {
-  initializeCategory();
 });
+
+// Set initial products
+products.value = initialProducts.value || [];
 
 definePageMeta({
   layout: "default",
