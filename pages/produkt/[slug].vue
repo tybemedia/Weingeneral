@@ -283,7 +283,6 @@ onMounted(() => {
 .inquiry-btn {
   height: 56px;
   border-radius: 12px;
-  font-size: 1.2rem !important;
   letter-spacing: 0.5px;
 }
 
@@ -310,16 +309,6 @@ onMounted(() => {
 .details-table td {
   vertical-align: top;
   line-height: 1.6;
-}
-
-.display-font {
-  font-family: 'Pathway Gothic One', sans-serif !important;
-}
-
-.base-font {
-  font-family: 'Patrick Hand', cursive !important;
-  font-size: 1.25rem !important;
-  line-height: 1.6 !important;
 }
 
 .product-tabs-section {
@@ -367,7 +356,7 @@ onMounted(() => {
 :deep(.product-description h1),
 :deep(.product-description h2),
 :deep(.product-description h3) {
-  font-family: 'Pathway Gothic One', sans-serif !important;
+  font-family: var(--font-family-base);
   margin: 2.5rem 0 1.5rem;
   color: #000000;
 }

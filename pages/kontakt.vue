@@ -260,23 +260,8 @@ const handleSubmit = async () => {
   padding: 0;
 }
 
-.display-font {
-  font-family: 'Pathway Gothic One', sans-serif !important;
-}
-
-.base-font {
-  font-family: 'Patrick Hand', cursive !important;
-  font-size: 1.25rem !important;
-  line-height: 1.6 !important;
-}
-
 :deep(.v-field) {
   border-radius: 8px !important;
-}
-
-:deep(.v-label) {
-  font-size: 1.1rem;
-  font-family: 'Patrick Hand', cursive !important;
 }
 
 @media (max-width: 960px) {

@@ -105,16 +105,6 @@
   max-width: 1280px;
 }
 
-.display-font {
-  font-family: 'Pathway Gothic One', sans-serif !important;
-}
-
-.base-font {
-  font-family: 'Patrick Hand', cursive !important;
-  font-size: 1.25rem !important;
-  line-height: 1.6 !important;
-}
-
 .product-card {
   border-radius: 20px;
   background: #fff;
@@ -150,7 +140,6 @@
 }
 
 .product-title {
-  font-size: 1.75rem;
   letter-spacing: -0.5px;
   color: #1d1d1f;
 }
@@ -167,7 +156,6 @@
 }
 
 .product-button {
-  font-size: 1.1rem !important;
   letter-spacing: 0.5px;
   height: 48px !important;
   border-radius: 12px;
@@ -215,10 +203,6 @@
 
   .product-info {
     min-height: 140px;
-  }
-
-  .product-title {
-    font-size: 1.5rem;
   }
 
   .product-button {

@@ -1,16 +1,15 @@
 // Custom variables
-$font-family-base: 'Patrick Hand', cursive;
+$font-family-base: 'Pathway Gothic One', sans-serif;
 $font-family-display: 'Pathway Gothic One', sans-serif;
 
 // Font size variables
-$font-size-base: 1.25rem; // 20px
+$font-size-base: 1.5rem; // 20px
 $font-size-lg: 1.5rem;   // 24px
-$font-size-xl: 1.75rem;  // 28px
+$font-size-xl: 2rem;  // 28px
 
 // Import fonts with more weights
-@import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Pathway+Gothic+One&display=swap');
 
-// Global font settings
 :root {
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -35,8 +34,10 @@ body {
 h1, h2, h3, h4, h5, h6,
 .text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
   font-family: $font-family-display;
-  font-weight: var(--font-weight-semibold);
   line-height: 1.2;
+}
+.text-h1{
+  font-weight: var(--font-weight-semibold);
 }
 
 .text-h1 { font-size: 4.5rem !important; }    // 72px
@@ -95,25 +96,24 @@ h1, h2, h3, h4, h5, h6,
 :deep(.v-btn),
 :deep(.text-h2),
 :deep(.text-h4) {
-  font-family: 'Pathway Gothic One', sans-serif !important;
+  font-family: $font-family-display;
 }
 
 :deep(.text-body-1),
 :deep(.text-body-2),
 :deep(.text-subtitle-1),
 :deep(.text-subtitle-2) {
-  font-family: 'Patrick Hand', cursive !important;
+  font-family: $font-family-display;
 }
 
 // Global Typography
 .display-font {
-  font-family: 'Pathway Gothic One', sans-serif !important;
+  font-family: $font-family-display;
+  font-size: 2rem !important;
 }
 
 .base-font {
-  font-family: 'Patrick Hand', cursive !important;
-  font-size: 1.25rem !important;
-  line-height: 1.6 !important;
+  font-family: $font-family-base;
 }
 
 // Section Title Styling
@@ -128,12 +128,12 @@ h1, h2, h3, h4, h5, h6,
 
 .title-background {
   background-color: #9a1915;
-  height: 34px;
+  height: 100%;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
+  border-radius: 4px;
+  padding: 0.25em 1em;
+  color: white;
 }
 
 .title-text {

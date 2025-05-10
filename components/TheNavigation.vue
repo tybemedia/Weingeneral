@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import Logo from '@/assets/Logo.svg'
+import Logo from '@/assets/WG_Logo25.svg'
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
@@ -236,7 +236,7 @@ const navItems = [
 }
 
 .text-nav {
-  font-family: 'Pathway Gothic One', sans-serif !important;
+  font-family: var(--font-family-base);
   font-size: 1.2rem;
   letter-spacing: 0.5px;
 }
